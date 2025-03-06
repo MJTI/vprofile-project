@@ -18,15 +18,6 @@ pipeline {
     }
 
     stages {
-//       stage('Clone The Project'){
-//           steps {
-//               git (
-//                   url: "https://github.com/MJTI/vprofile-project.git",
-//                   branch: "jenkins-ci",
-//                   poll: true
-//               )
-//           }
-//       }
         stage('Install'){
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
@@ -38,9 +29,9 @@ pipeline {
             }
         }
 
-        stage('Build'){
+        stage('Checkstyle Analysis'){
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn checkstyle:checkstyle'
             }
         }
     }
