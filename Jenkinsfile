@@ -4,7 +4,7 @@ pipeline {
         maven "MAVEN3"
         jdk "JDK17"
     }
-    
+
     environment {
         SNAP_REPO = 'vprofile-snapshot'
 		NEXUS_USER = 'admin'
@@ -18,13 +18,18 @@ pipeline {
     }
 
     stages {
-        stage('Builld'){
+        stage('Clone The Project'){
             steps {
                 git (
                     url: "https://github.com/MJTI/vprofile-project.git",
                     branch: "jenkins-ci",
                     poll: true
                 )
+            }
+        }
+        stage('Build'){
+            steps {
+                sh 'mvn -s settings.xml -DskipTests install'
             }
         }
     }
