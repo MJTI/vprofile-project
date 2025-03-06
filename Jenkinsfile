@@ -5,7 +5,7 @@ pipeline {
         jdk "JDK17"
     }
 
-    
+
     environment {
         SNAP_REPO = 'vprofile-snapshot'
 		NEXUS_USER = 'admin'
@@ -18,7 +18,7 @@ pipeline {
         NEXUS_LOGIN = 'nexuslogin'
     }
 
-        stage('Build'){
+        stage('Builld'){
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
             }
