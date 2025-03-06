@@ -4,6 +4,7 @@ pipeline {
         maven "MAVEN3"
         jdk "JDK17"
     }
+
     
     environment {
         SNAP_REPO = 'vprofile-snapshot'
