@@ -43,7 +43,12 @@ pipeline {
                     def scannerHome = tool "${SONAR_SCANNER}";
                     withSonarQubeEnv("${SONAR_SERVER}") {
                         // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
-                        sh "${sonarHome}"/bin/"${SONAR_SCANNER}" -h
+                        sh """ 
+                        ${sonarHome} \
+                            -Dsonar.projectkey=vprofilemjeed \
+                            -Dsonar.sources=./src/ \
+                            -Dsonar.host.url=http://172.31.45.194
+                        """
                     }
                 }
             }
