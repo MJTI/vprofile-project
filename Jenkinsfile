@@ -16,7 +16,7 @@ pipeline {
 		NEXUS_GRP_REPO = 'vpro-maven-group'
         NEXUS_LOGIN = 'nexuslogin'
         SONAR_SERVER = 'sonarserver'
-        SONAR_SCANNER= 'sonarscanner'
+        SONAR_SCANNER = 'sonarscanner'
     }
 
     stages {
