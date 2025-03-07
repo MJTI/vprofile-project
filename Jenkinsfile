@@ -15,6 +15,8 @@ pipeline {
 		NEXUSPORT = '8081'
 		NEXUS_GRP_REPO = 'vpro-maven-group'
         NEXUS_LOGIN = 'nexuslogin'
+        SONAR_SERVER = 'sonarserver'
+        SONAR_SCANNER= 'sonarscanner'
     }
 
     stages {
@@ -37,7 +39,7 @@ pipeline {
 
         stage('Upload Reports To SonarQube'){
             steps {
-                withSonarQubeEnv('sonarserver', envOnly: true) {
+                withSonarQubeEnv("${SONAR_SERVER}", envOnly: true) {
                   // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
                   println "${env.SONAR_HOST_URL}" 
                 }
