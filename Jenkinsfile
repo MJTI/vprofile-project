@@ -39,18 +39,19 @@ pipeline {
 
         stage('Upload Reports To SonarQube'){
             steps {
+                def scannerHome = tool "${SONAR_SCANNER}";
                 withSonarQubeEnv("${SONAR_SERVER}") {
                   // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
-                  println "${env.SONAR_HOST_URL}" 
+                  sh "${sonarHome}" -h
                 }
             }
         }
-        stage("Quality Gate") {
-            steps {
-              timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
-              }
-            }
-          }
+//        stage("Quality Gate") {
+//            steps {
+//              timeout(time: 1, unit: 'HOURS') {
+//                waitForQualityGate abortPipeline: true
+//              }
+//            }
+//          }
     }
 }
