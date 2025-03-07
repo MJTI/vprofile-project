@@ -38,11 +38,13 @@ pipeline {
         }
 
         stage('Upload Reports To SonarQube'){
-            def scannerHome = tool "${SONAR_SCANNER}";
             steps {
-                withSonarQubeEnv("${SONAR_SERVER}") {
-                  // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
-                  sh "${sonarHome}" -h
+                script {
+                    def scannerHome = tool "${SONAR_SCANNER}";
+                    withSonarQubeEnv("${SONAR_SERVER}") {
+                        // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
+                        sh "${sonarHome}" -h
+                    }
                 }
             }
         }
