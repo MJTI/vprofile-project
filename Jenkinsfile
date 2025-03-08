@@ -50,7 +50,7 @@ pipeline {
                     ///    -Dsonar.sources=./src/ \
                     ///    -Dsonar.host.url=http://172.31.45.194
                     ///'''
-                    sh "${scannerHome}/bin/sonar-scanner \
+                    sh "${scannerHome}/bin/sonar-scanner -X \
                         -Dsonar.projectkey=vprofilemjeed \
                         -Dsonar.sources=./src/ \
                         -Dsonar.host.url=http://172.31.45.194"
