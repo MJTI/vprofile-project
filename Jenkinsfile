@@ -52,6 +52,7 @@ pipeline {
                     ///'''
                     sh "${scannerHome}/bin/sonar-scanner -X \
                         -Dsonar.projectKey=vprofile \
+                        -Dsonar.sources=./src/ \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
             }
@@ -59,7 +60,6 @@ pipeline {
 //        stage("Quality Gate") {
 //            steps {
 //              timeout(time: 1, unit: 'HOURS') {
-//  -Dsonar.sources=./src/ \
 //                waitForQualityGate abortPipeline: true
 //              }
 //            }
