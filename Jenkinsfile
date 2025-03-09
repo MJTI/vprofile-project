@@ -52,7 +52,7 @@ pipeline {
                     ///'''
                     sh "${scannerHome}/bin/sonar-scanner -X \
                         -Dsonar.projectKey=vprofile \
-                        -Dsonar.sources=./src/ \
+                        -Dsonar.java.source=./src/ \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
             }
