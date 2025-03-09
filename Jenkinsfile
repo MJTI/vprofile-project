@@ -54,7 +54,7 @@ pipeline {
                         -Dsonar.projectKey=vprofile \
                         -Dsonar.java.binaries=target \
                         -Dsonar.java.sources=src/main/java \
-                        -Dsonar.exclusions=**/target/test-classes/**,**/target/generated-sources/**,**/*Test.java \
+                        -Dsonar.exclusions=**/target/**/*,**/webapp/**/*,**/entity/* \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
             }
@@ -62,6 +62,7 @@ pipeline {
 //        stage("Quality Gate") {
 //            steps {
 //              timeout(time: 1, unit: 'HOURS') {
+//  -Dsonar.exclusions=**/target/test-classes/**,**/target/generated-sources/**,**/*Test.java \
 //                waitForQualityGate abortPipeline: true
 //              }
 //            }
