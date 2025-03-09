@@ -54,6 +54,7 @@ pipeline {
                         -Dsonar.projectKey=vprofile \
                         -Dsonar.java.binaries=target \
                         -Dsonar.java.sources=src/main/java \
+                        -Dsonar.exclusions=**/target/test-classes/**,**/target/generated-sources/**,**/*Test.java \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
             }
