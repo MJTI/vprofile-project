@@ -53,6 +53,7 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner -X \
                         -Dsonar.projectKey=vprofile \
                         -Dsonar.java.binaries=target \
+                        -Dsonar.java.sources=src/main/java \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
             }
