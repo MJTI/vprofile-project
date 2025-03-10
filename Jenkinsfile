@@ -43,14 +43,8 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv("${SONAR_SERVER}") {
-                    // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
-                    ///sh '''
-                    ///${sonarHome}/bin/sonar-scanner \
-                    ///    -Dsonar.projectkey=vprofilemjeed \
-                    ///    -Dsonar.sources=./src/ \
-                    ///    -Dsonar.host.url=http://172.31.45.194
-                    ///'''
-                    sh "${scannerHome}/bin/sonar-scanner -X \
+
+                    sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=vprofile \
                         -Dsonar.java.binaries=target \
                         -Dsonar.projectVersion=1.0 \
@@ -69,6 +63,6 @@ pipeline {
                 waitForQualityGate abortPipeline: true
               }
             }
-          }
+        }
     }
 }
