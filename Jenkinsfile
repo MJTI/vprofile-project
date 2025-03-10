@@ -55,17 +55,18 @@ pipeline {
                         -Dsonar.java.binaries=target \
                         -Dsonar.java.sources=src/main/java \
                         -Dsonar.exclusions=**/target/**/*,**/webapp/**/*,**/entity/* \
+                        -Dsonar.jacoco.reportPath=target/jacoco.exec \
+                        -Dsonar.surefire.reportsPath=target/surefire-reports \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
             }
         }
-//        stage("Quality Gate") {
-//            steps {
-//              timeout(time: 1, unit: 'HOURS') {
-//  -Dsonar.exclusions=**/target/test-classes/**,**/target/generated-sources/**,**/*Test.java \
-//                waitForQualityGate abortPipeline: true
-//              }
-//            }
-//          }
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
     }
 }
