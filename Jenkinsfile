@@ -53,10 +53,11 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner -X \
                         -Dsonar.projectKey=vprofile \
                         -Dsonar.java.binaries=target \
+                        -Dsonar.projectVersion=1.0 \
                         -Dsonar.java.sources=src/main/java \
                         -Dsonar.exclusions=**/target/**/*,**/webapp/**/*,**/entity/* \
                         -Dsonar.jacoco.reportPath=target/jacoco.exec \
-                        -Dsonar.surefire.reportsPath=target/surefire-reports \
+                        -Dsonar.junit.reportsPath=target/surefire-reports \
                         -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
                         -Dsonar.host.url=http://172.31.45.194"
                 }
