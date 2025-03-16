@@ -21,11 +21,14 @@ pipeline {
     }
 
     stages {
+        stage('test maven versoin'){
+            steps {
+                sh 'pwd && mvn --version'
+            }
+        }
         stage('Install'){
             steps {
-                dir('..'){
                     sh 'mvn -s settings.xml -DskipTests install'
-                }
             }
         }
         stage('Test'){
