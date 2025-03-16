@@ -21,15 +21,9 @@ pipeline {
     }
 
     stages {
-        stage('Moving the settings to .m2'){
-            steps{
-                sh 'cp settings.xml stage/settings.xml'
-            }
-        }
-
         stage('Install'){
             steps {
-                sh 'mvn -s settings.xml -DskipTests install'
+                sh 'mvn -s ../settings.xml -DskipTests install'
             }
         }
         stage('Test'){
