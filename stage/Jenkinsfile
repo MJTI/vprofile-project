@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    tools {
+        maven "MAVEN3"
+        jdk "JDK17"
+    }
 
     environment {
         SNAP_REPO = 'vprofile-snapshot'
@@ -16,9 +21,68 @@ pipeline {
     }
 
     stages {
-        stage('checking the files in the jenkins home dir'){
+        stage('Install'){
             steps {
-                sh 'ls -lha'
+                sh 'mvn -s settings.xml -DskipTests install'
+            }
+        }
+        stage('Test'){
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Checkstyle Analysis'){
+            steps {
+                sh 'mvn checkstyle:checkstyle'
+            }
+        }
+
+        stage('Upload Reports To SonarQube'){
+            environment {
+                scannerHome = tool "${SONAR_SCANNER}"
+            }
+            steps {
+                withSonarQubeEnv("${SONAR_SERVER}") {
+
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=vprofile \
+                        -Dsonar.java.binaries=target \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.java.sources=src/main/java \
+                        -Dsonar.exclusions=**/target/**/*,**/webapp/**/*,**/entity/* \
+                        -Dsonar.jacoco.reportPath=target/jacoco.exec \
+                        -Dsonar.junit.reportsPath=target/surefire-reports \
+                        -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+                        -Dsonar.host.url=http://172.31.45.194"
+                }
+            }
+        }
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+        }
+
+        stage("Upload Artifact"){
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${NEXUSIP}" + ":" + "${NEXUSPORT}",
+                    groupId: 'com.example',
+                    version: "${BUILD_TIMESTAMP}",
+                    repository: "${RELEASE_REPO}",
+                    credentialsId: "${NEXUS_LOGIN}",
+                    artifacts: [
+                        [artifactId: 'vprofile',
+                         classifier: '',
+                         file: 'target/vprofile-v2.war',
+                         type: 'war']
+                    ]
+                )    
             }
         }
     }
