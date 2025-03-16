@@ -21,11 +21,6 @@ pipeline {
     }
 
     stages {
-        stage('go inside stage'){
-            steps {
-                sh 'cd stage'
-            }
-        }
         stage('Install'){
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
