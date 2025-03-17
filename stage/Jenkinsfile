@@ -20,11 +20,11 @@ pipeline {
         SONAR_SCANNER = 'sonarscanner'
     }
 
-    
+
     stages {
         stage('Install'){
             steps {
-                sh 'mvn clean install -DskipTests'
+                sh 'mvn clean install'
             }
         }
         stage('Test'){
