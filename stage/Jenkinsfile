@@ -20,6 +20,7 @@ pipeline {
         SONAR_SCANNER = 'sonarscanner'
     }
 
+    
     stages {
         stage('Install'){
             steps {
