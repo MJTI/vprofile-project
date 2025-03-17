@@ -23,18 +23,18 @@ pipeline {
     stages {
         stage('Install'){
             steps {
-                sh 'mvn clean install -s settings.xml -DskipTests'
+                sh 'mvn clean install -DskipTests'
             }
         }
         stage('Test'){
             steps {
-                sh 'mvn -s settings.xml test'
+                sh 'mvn test'
             }
         }
 
         stage('Checkstyle Analysis'){
             steps {
-                sh 'mvn -s settings.xml checkstyle:checkstyle'
+                sh 'mvn checkstyle:checkstyle'
             }
         }
 
