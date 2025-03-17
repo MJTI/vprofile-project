@@ -327,7 +327,7 @@
     </build>
     <repositories>
     <repository>
-      <id>${NEXUS-GRP-REPO}</id>
+      <id>${NEXUSGRPREPO}</id>
       <url>http://${NEXUSIP}:${NEXUSPORT}/repository/${NEXUSGRPREPO}/</url>
     </repository>
   </repositories>
