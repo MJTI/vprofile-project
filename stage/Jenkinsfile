@@ -87,9 +87,10 @@ pipeline {
 
         stage('Build, Push Docker Image'){
             steps {
-                
-                docker.withRegistry('138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile','awslogin'){
-                    docker.build("Docker-files/app/multistage/Dockerfile:${env.BUILD_ID}").push
+                script{
+                    docker.withRegistry('138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile','awslogin'){
+                        docker.build("Docker-files/app/multistage/Dockerfile:${env.BUILD_ID}").push
+                    }
                 }
             }
         }
