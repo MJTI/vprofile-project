@@ -89,9 +89,16 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry('https://138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile', 'ecr:us-east-1:awslogin'){
-                        //docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile:${env.BUILD_ID}", "./Docker-files/app/multistage/").push()
-                        docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile", "./Docker-files/app/multistage/").push()
+                        docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile:latest", "./Docker-files/app/multistage/").push()
                     }
+                }
+            }
+        }
+
+        stage('Update the ECS image'){
+            steps{
+                withAWS('awslogin', 'us-east-1'){
+                    sh 'aws ecs update-service --cluster stage_cluster --service stage-service --force-new-deployment'
                 }
             }
         }
