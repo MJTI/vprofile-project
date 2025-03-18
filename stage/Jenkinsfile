@@ -97,7 +97,7 @@ pipeline {
 
         stage('Update the ECS image'){
             steps{
-                withAWS('awslogin', 'us-east-1'){
+                withAWS(credentials: 'awslogin', region: 'us-east-1'){
                     sh 'aws ecs update-service --cluster stage_cluster --service stage-service --force-new-deployment'
                 }
             }
