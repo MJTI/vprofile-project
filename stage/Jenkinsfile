@@ -88,7 +88,7 @@ pipeline {
         stage('Push Docker Image to ECR'){
             steps {
                 script{
-                    docker.withRegistry('awsloginrepo', 'ecr.us-east-1:awslogin'){
+                    docker.withRegistry('awsloginrepo'){
                         def image = docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile:${env.BUILD_ID}", "./Docker-files/app/multistage/").push()
                     }
                 }
