@@ -85,11 +85,11 @@ pipeline {
             }
         }
 
-        stage('login to ECR'){
+        /*stage('login to ECR'){
             steps {
                 sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 138913568231.dkr.ecr.us-east-1.amazonaws.com"
             }
-        }
+        }*/
 
         stage('Push Docker Image to ECR'){
             steps {
