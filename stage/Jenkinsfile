@@ -85,16 +85,10 @@ pipeline {
             }
         }
 
-        /*stage('login to ECR'){
-            steps {
-                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 138913568231.dkr.ecr.us-east-1.amazonaws.com"
-            }
-        }*/
-
         stage('Push Docker Image to ECR'){
             steps {
                 script{
-                    docker.withRegistry('https://138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile', 'ecr:us-east-1:awslogin'){
+                    docker.withRegistry('awsloginrepo', 'awslogin'){
                         def image = docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile:${env.BUILD_ID}", "./Docker-files/app/multistage/").push()
                     }
                 }
