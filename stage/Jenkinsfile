@@ -89,7 +89,8 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry('https://138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile', 'ecr:us-east-1:awslogin'){
-                        def image = docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile:${env.BUILD_ID}", "./Docker-files/app/multistage/").push()
+                        docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile:${env.BUILD_ID}", "./Docker-files/app/multistage/").push()
+                        docker.build("138913568231.dkr.ecr.us-east-1.amazonaws.com/vprofile", "./Docker-files/app/multistage/").push()
                     }
                 }
             }
